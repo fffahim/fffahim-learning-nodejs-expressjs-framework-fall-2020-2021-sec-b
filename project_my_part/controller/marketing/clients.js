@@ -5,13 +5,20 @@ const {check,validationResult}=require('express-validator');
 const router = express.Router();
 
 router.get('/create', (req, res)=>{
-	res.render('marketuser/create'); 
+	if(req.cookies['uname'] != null)
+	{
+		res.render('marketuser/create'); 
+	}
+	else
+	{
+		res.redirect('/login');
+	}
 })
 
 router.post('/create',[
 	check('username','Username must be atleast 4 characters long').exists().isLength({min:4}),
 	check('email','email not valid').isEmail(),
-	check('phone','phone must be atleast 14 characters long').isLength({min:14})
+	check('phone','phone must be atleast 9 characters long').isLength({min:9})
 	] ,(req, res)=>{
 		const errors = validationResult(req);
 		if(!errors.isEmpty()){
@@ -28,7 +35,13 @@ router.post('/create',[
 				gender:req.body.gender,
 				status:req.body.status
 			}
-			clientsModel.insert()
+			clientsModel.insert(user,tab,function(status){
+				if(status)
+				{
+					console.log(status);
+					res.redirect('/markethome/'+tab);
+				}
+			});
 		}	
 })
 router.get('/upgrade/:id/:table',(req,res)=>{
@@ -42,25 +55,39 @@ router.get('/upgrade/:id/:table',(req,res)=>{
 	});
 })
 
-router.get('/edit/:table/:id', (req, res)=>{
+router.get('/profile/:table/:id', (req, res)=>{
 
 	var data = req.params.id;
 	var tab=req.params.table;
 	clientsModel.getById(tab,data,function(results){
-		var user ={
-		name : results[0].name,
-		email: results[0].email,
-		phone: results[0].phone,
-		status:results[0].status,
-		gender:results[0].gender,
-		id:    results[0].id
-	};
-		res.render('marketuser/edit',{userlist:user});
+		if(tab=='leads')
+		{
+			var user ={
+				name : results[0].name,
+				email: results[0].email,
+				phone: results[0].phone,
+				status:results[0].status,
+				gender:results[0].gender,
+				id:    results[0].id
+			};
+		}
+		else
+		{
+			var user ={
+				name : results[0].customerName,
+				email: results[0].customerEmail,
+				phone: results[0].customerContactNumber,
+				status:results[0].customerStatus,
+				gender:results[0].customerGender,
+				id:    results[0].id
+			};
+		}
+		res.render('marketuser/profile',{userlist:user});
 	})
 })
 
 
-router.post('/edit/:table/:id', (req, res)=>{
+router.post('/profile/:table/:id', (req, res)=>{
 
 	var tab=req.params.table;
 	var data=req.params.id;

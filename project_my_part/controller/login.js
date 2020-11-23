@@ -20,20 +20,18 @@ router.post('/', (req, res)=>{
 			var user = {
 				username: results[0].username,
 				id: results[0].id,
-				fullname : results[0].fullname,
+				type : results[0].type,
 				email: results[0].email,
-				phone: results[0].phone,
-				gender:results[0].gender,
+				phone: results[0].contactNumber,
 				pass: results[0].password,
 			};
 			console.log(user);
 			req.session.use =user;
-			req.session.fname = results[0].fullname;
+			req.session.designation = results[0].designation;
 			req.session.mail = results[0].email;
-			req.session.phone = results[0].phone;
+			req.session.phone = results[0].contactNumber;
 			req.session.username=results[0].username;
 			req.session.idd = results[0].id;
-			req.session.gen = results[0].gender;
 			req.session.pass = results[0].password;
 			res.redirect('/markethome');
 		}else{

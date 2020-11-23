@@ -35,7 +35,7 @@ module.exports ={
 		});
 	},
 	update: function(user,callback){
-		var sql = "update user set username='"+user.username+"' , fullname='"+user.fullname+"' , email='"+user.email+"' , phone='"+user.phone+"' , gender='"+user.gender+"' where id = '"+user.id+"' ;";
+		var sql = "update user set username='"+user.username+"' , email='"+user.email+"' , contactNumber='"+user.phone+"' , designation='"+user.designation+"' where id = '"+user.id+"' ;";
 		db.execute(sql,function(status){
 			callback(status);
 		})

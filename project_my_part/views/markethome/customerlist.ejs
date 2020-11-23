@@ -1,5 +1,5 @@
-	<%- include('../partial/header.ejs')%>
-	<%- include('../partial/sidebars.ejs')%>
+	<%- include('../partial/marketheader.ejs')%>
+	<%- include('../partial/marketsidebars.ejs')%>
 	<div class="main-container">
 		<div class="pd-ltr-20 xs-pd-20-10">
 			<div class="min-height-200px">
@@ -33,12 +33,12 @@
 				    	<% for(var i=0; i< userlist.length; i++ ){ %>
 							<tr>
 								<td><%= userlist[i].id %></td>
-								<td><%= userlist[i].name %></td>
-								<td><%= userlist[i].email %></td>
-								<td><%= userlist[i].phone %></td>  
-								<td><%= userlist[i].gender %></td>
-								<td><span class="badge badge-danger"><%= userlist[i].status %></span></td>
-								<td><a class="btn btn-primary" href="/clients/edit/<%='customer'%>/<%=userlist[i].id%>">Edit</a></td>  
+								<td><%= userlist[i].customerName %></td>
+								<td><%= userlist[i].customerEmail %></td>
+								<td><%= userlist[i].customerContactNumber %></td>  
+								<td><%= userlist[i].customerGender %></td>
+								<td><span class="badge badge-danger"><%= userlist[i].customerStatus %></span></td>
+								<td><a class="btn btn-primary" href="/clients/profile/<%='customer'%>/<%=userlist[i].id%>">Profile</a></td>  
 								<td><a class="btn btn-primary" href="/clients/delete/<%=userlist[i].id%>/<%='customer'%>">Delete</a></td>
 							</tr>
 						<% } %>

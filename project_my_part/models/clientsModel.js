@@ -28,13 +28,17 @@ module.exports ={
 
 	},
 	insert: function(user,tab, callback){
-		var sql = "insert into "+tab+" VALUES ('', '"+user.name+"' , '"+user.password+"' , '"+user.type+"')";
+		var sql="";
+		if(tab=='leads') sql = "insert into "+tab+" VALUES ('', '"+user.name+"' , '"+user.email+"' , '"+user.phone+"' , '"+user.status+"', '"+user.gender+"')";
+		else sql="insert into customer VALUES ('', '"+user.name+"' , '"+user.phone+"' , 'DHAKA' ,'"+user.email+"' , 'customer' , '"+user.gender+"')";
 		db.execute(sql, function(status){
 			callback(status);
 		});
 	},
 	update: function(user,table,callback){
-		var sql = "update "+table+" set name='"+user.name+"' , email='"+user.email+"' , phone='"+user.phone+"' , status='"+user.status+"', gender='"+user.gender+"' where id = '"+user.id+"' ;";
+		var sql ="";
+		if(table=='leads') sql="update "+table+" set name='"+user.name+"' , email='"+user.email+"' , phone='"+user.phone+"' , status='"+user.status+"', gender='"+user.gender+"' where id = '"+user.id+"' ;";
+		else sql="update "+table+" set customerName='"+user.name+"' , customerEmail='"+user.email+"' , customerContactNumber='"+user.phone+"' , customerStatus='"+user.status+"', customerGender='"+user.gender+"' where id = '"+user.id+"' ;";
 		console.log(sql);
 		db.execute(sql,function(status){
 			callback(status);
@@ -59,7 +63,9 @@ module.exports ={
 				db.execute(sql,function(status){
 					if(status)
 					{
-						var sql2 = "insert into customer VALUES ('', '"+user.name+"' , '"+user.email+"' , '"+user.phone+"' , 'customer' , '"+user.gender+"')";
+
+						var sql2 = "insert into customer VALUES ('', '"+user.name+"' , '"+user.phone+"' , 'DHAKA' ,'"+user.email+"' , 'customer' , '"+user.gender+"')";
+						console.log(sql2);
 						db.execute(sql2, function(status){
 							if(status)
 							{

@@ -1,5 +1,5 @@
-	<%- include('../partial/header.ejs')%>
-	<%- include('../partial/sidebars.ejs')%>
+	<%- include('../partial/marketheader.ejs')%>
+	<%- include('../partial/marketsidebars.ejs')%>
 	<div class="main-container">
 		<div class="pd-ltr-20 xs-pd-20-10">
 			<div class="min-height-200px">
@@ -43,7 +43,7 @@
 								<td><%= userlist[i].gender %></td>
 								<% if(userlist[i].status=='Potential'){%> <td><span class="badge badge-success"><%= userlist[i].status%></span></td> <%}else {%>
 								<td><span class="badge badge-secondary"><%= userlist[i].status%></span></td><%}%>
-								<td><a class="btn btn-primary" href="/clients/edit/<%='leads'%>/<%=userlist[i].id%>">Edit</a></td>  
+								<td><a class="btn btn-primary" href="/clients/profile/<%='leads'%>/<%=userlist[i].id%>">Profile</a></td>  
 								<td><a class="btn btn-primary" href="/clients/delete/<%=userlist[i].id%>/<%='leads'%>">Delete</a></td>
 								<td><a class="btn btn-primary" href="/clients/upgrade/<%=userlist[i].id%>/<%='leads'%>">Upgrade</a></td>
 							</tr>
