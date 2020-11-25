@@ -9,7 +9,49 @@
 	<a href="/home">Back</a> |
 	<a href="/logout">logout</a>
 	<br>
-
+	<div>
+		<select class="form-control mr-sm-2" id="searchBy">
+			<option >Search By</option>
+			<option value="id">Campaign id</option>
+			<option value="type">type</option>
+		</select>
+		<br>
+        <input type="text" name="search" id="search" placeholder="Search ">
+        <br>
+	</div>
+	<script type="text/javascript">	
+		$(document).ready(function(){
+		$('#search').on('keyup',function(){
+			var search = $("#search").val();
+			var searchBy = $("#searchBy").val();
+			$.ajax({
+				url:'/campaigns/search',
+				method: 'post',
+				datatype : 'json',
+				data : {'search':search,
+						'searchBy':searchBy},
+				success:function(response){
+					if(response.userlist !== 'error'){
+						var tableBody="<tr><td>id</td><td>username</td><td>password</td><td>type</td><td>Action</td></tr>";
+						response.userlist.forEach(element => {
+							var tableRow="";
+							tableRow+="<td>"+element.id+"</td>";
+							tableRow+="<td>"+element.username+"</td>";
+							tableRow+="<td>"+element.password+"</td>";
+							tableRow+="<td>"+element.type+"</td>";
+							tableRow+="<td><a href='user/edit/<%=element.id%>'>Edit</a>";
+							tableRow+="<a href='user/edit/<%=element.id%>'>Delete</a></td>";
+							tableBody=tableBody+"<tr>"+tableRow+"</tr>";
+						});
+						$('#table').html(tableBody);
+					}else{
+					}
+				
+				}
+			});
+		});
+	});
+	</script>
 	<table border="1">
 		<tr>
 			<td>ID</td>
