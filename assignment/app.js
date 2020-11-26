@@ -2,6 +2,7 @@
 const express 		= require('express');
 const bodyParser 	= require('body-parser');
 const exSession 	= require('express-session');
+const expl          = require('express-ejs-layouts');
 const cookieParser 	= require('cookie-parser');
 const nodemailer 	= require("nodemailer");
 const {check,validationResult}=require('express-validator');
@@ -10,11 +11,13 @@ const home			= require('./controller/home');
 const user			= require('./controller/user');
 const logout		= require('./controller/logout');
 const dash  		= require('./controller/dash');
+const products		= require('./controller/products');
 const fastcsv 		= require("fast-csv");
 const fs 			= require("fs");
 const app 			= express();
 
 //config
+app.use(expl);
 app.set('view engine', 'ejs');
 //middleware
 app.use('/abc', express.static('assets'));
@@ -26,6 +29,7 @@ app.use('/login', login);
 app.use('/home', home);
 app.use('/logout', logout);
 app.use('/user', user);
+app.use('/products',products);
 //route
 app.get('/', (req, res)=>{
 	res.render('dash/dashboard');	
