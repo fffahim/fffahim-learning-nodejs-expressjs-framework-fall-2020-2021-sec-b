@@ -10,14 +10,36 @@
 
     <% for(var i=0; i< userlist.length; i++ ){ %>
     <tr>
-      <td><%= userlist[i].type %></td>
-      <td><%= userlist[i].company %></td>
-      <td><%= userlist[i].price %></td>
-      <td><%= userlist[i].amount %></td>
+      <td id="<%=userlist[i].id%>_type"><%= userlist[i].type %></td>
+      <td id="<%=userlist[i].id%>_company"><%= userlist[i].company %></td>
+      <td id="<%=userlist[i].id%>_price"><%= userlist[i].price %></td>
+      <td id="<%=userlist[i].id%>_amount"><%=userlist[i].amount%></td>
       <td>
-        <a href="/user/edit/<%=userlist[i].id%>">ADD</a> | 
-        <a href="/user/delete/<%=userlist[i].id%>">Delete</a>  
+        <a href="#" onclick="cart(<%=userlist[i].id%>)">ADD</a>
       </td>
     </tr>
     <% } %>
   </table>
+  <script type="text/javascript">
+         function cart(id)
+        {
+          var type=document.getElementById(id+"_type").innerHTML;
+          var company=document.getElementById(id+"_company").innerHTML;
+          var price=document.getElementById(id+"_price").innerHTML;
+          var amount=document.getElementById(id+"_amount").innerHTML;
+          alert(company);
+          $.ajax({
+              type:'post',
+              url:'/cart',
+              data:{
+                item_cmp:company,
+                item_price:price,
+                item_type:type
+              },
+              success:function(response) {
+                document.getElementById("total_items").value=response;
+              }
+            });
+    
+      }
+  </script>

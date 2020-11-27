@@ -1,0 +1,16 @@
+<%- include('../partial/user.ejs')%>
+<table class="table table-dark" >
+    <tr>
+      <td>type</td>
+      <td>company</td>
+      <td>price</td>
+    </tr>
+
+    <% for(var i=0; i< userlist.length; i++ ){ %>
+    <tr>
+      <td ><%= userlist[i].type %></td>
+      <td ><%= userlist[i].company %></td>
+      <td ><%= userlist[i].price %></td>
+    </tr>
+    <% } %>
+  </table>

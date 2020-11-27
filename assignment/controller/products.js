@@ -1,5 +1,6 @@
 const express 	= require('express');
 const productsModel = require.main.require('./models/productsModel');
+const cartsModel = require.main.require('./models/cartsModel');
 const router 	= express.Router();
 
 router.get('/:type', (req, res)=>{

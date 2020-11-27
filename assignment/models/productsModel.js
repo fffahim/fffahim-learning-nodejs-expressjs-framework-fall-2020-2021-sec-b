@@ -16,13 +16,15 @@ module.exports ={
 			callback(results);
 		});
 
+
 	},
 	insert: function(user, callback){
-		var sql = "insert into user VALUES ('', '"+user.username+"' , '"+user.password+"' , '"+user.type+"')";
+		var sql = "insert into cart VALUES ('"+user.id+"', '"+user.type+"' , '"+user.company+"' , '"+user.price+"')";
 		
 		//console.log(sql);
 
 		db.execute(sql, function(status){
+			console.log(status);
 			callback(status);
 		});
 	},
